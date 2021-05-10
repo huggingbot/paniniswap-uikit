@@ -18,25 +18,34 @@ const InactiveButton = styled(Button)<InactiveButtonProps>`
 `;
 
 const ButtonMenuItem: React.FC<ButtonMenuItemProps> = ({
-  isActive = false,
+  isactive = false,
   size = sizes.MD,
   variant = variants.PRIMARY,
   as,
   ...props
 }) => {
-  if (!isActive) {
+  const { isloading, fullwidth } = props
+  let newProps = props as any
+
+  if (typeof as !== 'string' || as === 'a') {
+    const loading = isloading ? 1: 0
+    const width = fullwidth ? 1 : 0
+    newProps = { isloading: loading, fullwidth: width, ...props }
+  }
+
+  if (!isactive) {
     return (
       <InactiveButton
         forwardedAs={as}
         size={size}
         variant="tertiary"
         colorkey={variant === variants.PRIMARY ? "primary" : "textSubtle"}
-        {...props}
+        {...newProps}
       />
     );
   }
 
-  return <Button as={as} size={size} variant={variant} {...props} />;
+  return <Button as={as} size={size} variant={variant} {...newProps} />;
 };
 
 export default ButtonMenuItem;

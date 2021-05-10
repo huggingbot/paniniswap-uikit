@@ -1,7 +1,7 @@
 import { ButtonProps, Sizes, variants } from "../Button/types";
 
 export type ButtonMenuItemProps = {
-  isActive?: boolean;
+  isactive?: boolean;
   size?: Sizes;
 } & ButtonProps;
 

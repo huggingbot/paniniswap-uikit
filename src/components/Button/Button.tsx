@@ -3,12 +3,21 @@ import getExternalLinkProps from "../../util/getExternalLinkProps";
 import StyledButton from "./StyledButton";
 import { ButtonProps, variants, sizes } from "./types";
 
-const Button: React.FC<ButtonProps> = ({ startIcon, endIcon, children, external, isloading, disabled, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ startIcon, endIcon, children, external, disabled, ...props }) => {
   const internalProps = external ? getExternalLinkProps() : {};
+  
+  const { as, isloading, fullwidth } = props
+  let newProps = props as any
+  
+  if (typeof as !== 'string' || as === 'a') {
+    const loading = isloading ? 1: 0
+    const width = fullwidth ? 1 : 0
+    newProps = { ...props, isloading: loading, fullwidth: width }
+  }
   const isDisabled = isloading || disabled;
 
   return (
-    <StyledButton {...internalProps} {...props} isloading={isloading} disabled={isDisabled}>
+    <StyledButton {...internalProps} {...newProps} disabled={isDisabled}>
       {React.isValidElement(startIcon) &&
         React.cloneElement(startIcon, {
           mr: "0.5rem",

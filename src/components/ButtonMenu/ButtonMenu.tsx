@@ -14,7 +14,7 @@ const ButtonMenu: React.FC<ButtonMenuProps> = ({
     <StyledButtonMenu variant={variant}>
       {Children.map(children, (child: ReactElement<ButtonMenuItemProps>, index) => {
         return cloneElement(child, {
-          isActive: activeIndex === index,
+          isactive: activeIndex === index,
           onClick: onClick ? () => onClick(index) : undefined,
           size,
           variant,
